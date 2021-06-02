@@ -17,9 +17,8 @@ from sklearn.decomposition import PCA
 from sklearn import svm
 from tqdm import tqdm
 
-FOLD = 3            # = NUM_SAMPLE / number of testing samples
-NUM_SAMPLE = 3000   # total number of samples used for training and testing
-
+FOLD = 3  # = NUM_SAMPLE / number of testing samples
+NUM_SAMPLE = 3000  # total number of samples used for training and testing
 
 '''
 IDC feature extraction
@@ -32,6 +31,8 @@ input
 output
     A numpy vector, which contains the features determined by IDC algorithm.
 '''
+
+
 def IDC(file):
     data = []
     with open(file, "r") as f:
@@ -39,13 +40,13 @@ def IDC(file):
             line = [int(i) for i in line.split()]
             data.append(line)
 
-    a = np.zeros(shape = (128, 128))
-    e = np.zeros(shape = (32, 32))
-    l = np.zeros(shape = (32, 32))
-    c1 = np.zeros(shape = 128)
-    c2 = np.zeros(shape = 32)
-    c3 = np.zeros(shape = 32)
-    
+    a = np.zeros(shape=(128, 128))
+    e = np.zeros(shape=(32, 32))
+    l = np.zeros(shape=(32, 32))
+    c1 = np.zeros(shape=128)
+    c2 = np.zeros(shape=32)
+    c3 = np.zeros(shape=32)
+
     for i in range(len(data) - 1):
         data1 = data[i]
         data2 = data[i + 1]
@@ -55,7 +56,7 @@ def IDC(file):
         a[data1[0], data2[0]] += 1
         e[data1[1], data2[1]] += 1
         l[data1[2], data2[2]] += 1
-        
+
     for i in range(a.shape[0]):
         for j in range(a.shape[1]):
             if c1[i] != 0:
@@ -68,16 +69,16 @@ def IDC(file):
         for j in range(l.shape[1]):
             if c3[i] != 0:
                 l[i, j] /= c3[i]
-                
+
     c1 = c1 / (len(data) - 1)
     c2 = c2 / (len(data) - 1)
     c3 = c3 / (len(data) - 1)
-    a = a.max(axis = 1)
-    e = e.max(axis = 1)
-    l = l.max(axis = 1)
-                
+    a = a.max(axis=1)
+    e = e.max(axis=1)
+    l = l.max(axis=1)
+
     return np.concatenate([c1, c2, c3, a, e, l])
-    
+
 
 '''
 IDC training and testing
@@ -90,33 +91,34 @@ input
     result_folder
         The folder that stores the results.
 '''
+
+
 def main(positive_data_folder, negative_data_folder, result_folder):
-    
     build_model = IDC
-    
+
     positive_data_files = [os.path.join(positive_data_folder, path) for path in os.listdir(positive_data_folder)]
     negative_data_files = [os.path.join(negative_data_folder, path) for path in os.listdir(negative_data_folder)]
-    
+
     random.shuffle(positive_data_files)
     random.shuffle(negative_data_files)
-    
-    positive_data_files = positive_data_files[0 : NUM_SAMPLE] # The positive samples for training and testing
-    negative_data_files = negative_data_files[0 : NUM_SAMPLE] # The negative samples for training and testing
-    
+
+    positive_data_files = positive_data_files[0: NUM_SAMPLE]  # The positive samples for training and testing
+    negative_data_files = negative_data_files[0: NUM_SAMPLE]  # The negative samples for training and testing
+
     num_files = len(positive_data_files)
-    
+
     with open(os.path.join(result_folder, "file_list.pkl"), "wb") as f:
         pickle.dump(positive_data_files, f)
         pickle.dump(negative_data_files, f)
-    
-    test_positive_data_files = positive_data_files[0 : int(num_files / FOLD)] # The positive samples for testing
-    test_negative_data_files = negative_data_files[0 : int(num_files / FOLD)] # The negative samples for testing
-    train_positive_data_files = positive_data_files[int(num_files / FOLD) :] # The positive samples for training
-    train_negative_data_files = negative_data_files[int(num_files / FOLD) :] # The negative samples for training
-    
+
+    test_positive_data_files = positive_data_files[0: int(num_files / FOLD)]  # The positive samples for testing
+    test_negative_data_files = negative_data_files[0: int(num_files / FOLD)]  # The negative samples for testing
+    train_positive_data_files = positive_data_files[int(num_files / FOLD):]  # The positive samples for training
+    train_negative_data_files = negative_data_files[int(num_files / FOLD):]  # The negative samples for training
+
     num_train_files = len(train_negative_data_files)
     num_test_files = len(test_negative_data_files)
-    
+
     # load train data
     print("Loading train data")
     X = []
@@ -130,14 +132,14 @@ def main(positive_data_folder, negative_data_folder, result_folder):
         X.append(new_feature.reshape(1, -1))
         Y.append(1)
     X = np.row_stack(X)
-        
+
     # train SVM
     print("Training SVM")
     clf = svm.SVC()
     clf.fit(X, Y)
     with open(os.path.join(result_folder, "svm.pkl"), "wb") as f:
         pickle.dump(clf, f)
-    
+
     # test 
     print("Testing")
     X = []
@@ -149,12 +151,12 @@ def main(positive_data_folder, negative_data_folder, result_folder):
     for i in tqdm(range(num_test_files)):
         new_feature = build_model(test_positive_data_files[i])
         X.append(new_feature.reshape(1, -1))
-        Y.append(1) 
+        Y.append(1)
     X = np.row_stack(X)
     Y_predict = clf.predict(X)
     with open(os.path.join(result_folder, "Y_predict.pkl"), "wb") as f:
         pickle.dump(Y_predict, f)
-        
+
     # output result
     correct_negative = 0
     correct_positive = 0
@@ -173,8 +175,7 @@ def main(positive_data_folder, negative_data_folder, result_folder):
         writer.writerow(["False Positive", 1 - float(correct_negative) / num_test_files])
         writer.writerow(["False Negative", 1 - float(correct_positive) / num_test_files])
         writer.writerow(["Precision", float(correct_negative + correct_positive) / (num_test_files * 2)])
-    
-    
+
+
 if __name__ == "__main__":
     main('/data1/linzn/data/ch_g729a_100_10000ms_FEAT', '/data1/linzn/data/ch_g729a_0_10000ms_FEAT', '.')
-    

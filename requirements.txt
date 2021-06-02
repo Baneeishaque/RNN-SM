@@ -1,0 +1,6 @@
+keras
+scikit-learn
+tqdm
+numpy
+jupyterlab
+pylint
