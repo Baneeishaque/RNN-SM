@@ -1,0 +1,77 @@
+# Anaconda3-2020.11
+
+trigger:
+  - master
+
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-latest'
+    mac:
+      imageName: 'macOS-latest'
+    windows:
+      imageName: 'windows-latest'
+
+pool:
+  vmImage: $(imageName)
+
+# variables:
+#   ANACONDA_VERSION: 3-2020.11
+#   TIME_STAMP: 28 Apr. 2021
+#   CONDA_CACHE_DIR: $(Pipeline.Workspace)/.condarc
+
+steps:
+  - checkout: self
+    submodules: recursive
+
+  - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+    condition: eq( variables['Agent.OS'], 'Windows_NT' )
+    displayName: Add conda to PATH On Windows
+
+  - bash: echo "##vso[task.prependpath]$CONDA/bin"
+    condition: ne( variables['Agent.OS'], 'Windows_NT' )
+    displayName: Add conda to PATH On Unix
+
+  # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory. We need to take ownership if we want to update conda or install packages globally.
+  - bash: sudo chown -R $USER $CONDA
+    condition: eq( variables['Agent.OS'], 'Darwin' )
+    displayName: Take ownership of conda installation on macOS
+
+  #   - task: Cache@2
+  #     displayName: Use cached Anaconda environment
+  #     inputs:
+  #       key: 'conda | "$(ANACONDA_VERSION)" | "$(TIME_STAMP)" | "$(Agent.OS)" | environment.yml'
+  #       restoreKeys: |
+  #         python | "$(Agent.OS)"
+  #         python
+  #       path: $(CONDA_CACHE_DIR)
+  #       cacheHitVar: CONDA_CACHE_RESTORED
+
+  #   - script: conda config --set channel_priority strict
+  #     displayName: Set Channel Priority to Strict on Anaconda environment
+  #     condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+
+  - script: conda update -y --all
+    displayName: Update Anaconda environment
+  #     condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+
+  - script: conda env create --file environment.yml
+    displayName: Create Anaconda environment
+    #     condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+
+    #   - script: conda init cmd.exe
+    #     displayName: Configure shell for Anaconda environment on Windows
+    #     condition: eq( variables['Agent.OS'], 'Windows_NT' )
+
+  #   - script: |
+  #       conda activate RNN-SM
+  #       # python mainScript.py
+  #     displayName: Run mainScript.py on Windows
+  #     condition: eq( variables['Agent.OS'], 'Windows_NT' )
+
+  - bash: |
+      eval "$(conda shell.bash hook)"
+      conda activate RNN-SM
+      # python mainScript.py
+    displayName: Run mainScript.py
+#    condition: ne( variables['Agent.OS'], 'Windows_NT' )
