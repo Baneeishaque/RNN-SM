@@ -1,7 +1,7 @@
 name: RNN-SM
 dependencies:
   - python=2
-  - keras
+  - keras=2.0.8
   - scikit-learn
   - tqdm
   - jupyterlab
