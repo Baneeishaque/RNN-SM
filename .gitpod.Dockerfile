@@ -6,5 +6,5 @@ RUN conda env create -f $HOME/environment.yml \
  && rm $HOME/environment.yml
 
 # RUN pyenv global anaconda3-2020.11/envs/RNN-SM
-RUN echo "conda activate RNN-SM" >> ~/.bashrc
-RUN echo "conda activate RNN-SM" >> ~/.zshrc
+# RUN echo "conda activate RNN-SM" >> ~/.bashrc
+# RUN echo "conda activate RNN-SM" >> ~/.zshrc
