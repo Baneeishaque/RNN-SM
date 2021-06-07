@@ -1,6 +1,5 @@
 name: RNN-SM
 dependencies:
-  - python=3.8
   - keras
   - scikit-learn
   - tqdm
