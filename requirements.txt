@@ -1,7 +1,8 @@
-keras
-scikit-learn
-tqdm
-numpy
-jupyterlab
-pylint
-autopep8
+tensorflow==1.2.0
+keras==1.2.0
+# scikit-learn
+# tqdm
+# numpy
+# jupyterlab
+# pylint
+# autopep8
