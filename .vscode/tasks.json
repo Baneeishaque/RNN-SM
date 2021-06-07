@@ -1,0 +1,170 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Gitpod Docker Image",
+            "type": "shell",
+            "command": "docker",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [
+                "build",
+                "--file",
+                ".gitpod.Dockerfile",
+                "--tag",
+                "baneeishaque/github-rnn-sm:latest",
+                "."
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "echo": true,
+                "focus": true,
+                "panel": "shared",
+                "group": "Docker",
+                "revealProblems": "onProblem",
+                "clear": false,
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            }
+        },
+        {
+            "label": "Run ZSH on Gitpod Docker Image",
+            "type": "shell",
+            "command": "docker",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [
+                "run",
+                "-it",
+                "--entrypoint",
+                "/usr/bin/zsh",
+                "baneeishaque/github-rnn-sm:latest"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "echo": true,
+                "focus": true,
+                "panel": "shared",
+                "group": "Docker",
+                "revealProblems": "onProblem",
+                "clear": false,
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "dependsOn": [
+                "Build Gitpod Docker Image"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Bash on Gitpod Docker Image",
+            "type": "shell",
+            "command": "docker",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [
+                "run",
+                "-it",
+                "--entrypoint",
+                "/bin/bash",
+                "baneeishaque/github-rnn-sm:latest"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "echo": true,
+                "focus": true,
+                "panel": "shared",
+                "group": "Docker",
+                "revealProblems": "onProblem",
+                "clear": false,
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "dependsOn": [
+                "Build Gitpod Docker Image"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Login to Docker Hub",
+            "type": "shell",
+            "command": "docker",
+            "isBackground": false,
+            "args": [
+                "login"
+            ],
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "echo": true,
+                "focus": true,
+                "panel": "shared",
+                "group": "Docker",
+                "revealProblems": "onProblem",
+                "clear": false,
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            }
+        },
+        {
+            "label": "Push Docker Image",
+            "type": "shell",
+            "command": "docker",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [
+                "push",
+                "baneeishaque/github-rnn-sm:latest"
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "echo": true,
+                "focus": true,
+                "panel": "shared",
+                "group": "Docker",
+                "revealProblems": "onProblem",
+                "clear": false,
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Login to Docker Hub",
+                "Build Gitpod Docker Image"
+            ]
+        }
+    ]
+}
