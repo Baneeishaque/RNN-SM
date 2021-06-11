@@ -112,7 +112,8 @@ if __name__ == '__main__':
 
     print("Building model")
     model = Sequential()
-    model.add(LSTM(50, input_length=int(SAMPLE_LENGTH / 10), input_dim=3, return_sequences=True))  # first layer
+    model.add(LSTM(50, input_shape=(int(SAMPLE_LENGTH / 10), 3), return_sequences=True))  # first layer
+    model.summary()
     model.add(LSTM(50))  # second layer
     model.add(Dense(1))  # output layer
     model.add(Activation('sigmoid'))  # activation function
@@ -121,5 +122,5 @@ if __name__ == '__main__':
 
     print("Training")
     for i in range(ITER):
-        model.fit(x_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, validation_data=(x_test, y_test))
+        model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1, validation_data=(x_test, y_test))
         model.save('model_%d.h5' % (i + 1))
