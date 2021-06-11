@@ -33,10 +33,10 @@ Get the paths of all files in the folder
 '''
 
 
-def get_file_list(folder):
+def get_file_list(local_folder):
     file_list = []
-    for file in os.listdir(folder):
-        file_list.append(os.path.join(folder, file))
+    for fileItem in os.listdir(local_folder):
+        file_list.append(os.path.join(local_folder, fileItem))
     return file_list
 
 
@@ -54,8 +54,8 @@ output
 
 
 def parse_sample(file_path):
-    file = open(file_path, 'r')
-    lines = file.readlines()
+    local_file = open(file_path, 'r')
+    lines = local_file.readlines()
     sample = []
     for line in lines:
         line_split = line.strip("\r\n\t").strip().split("\t")
@@ -78,14 +78,22 @@ def save_variable(file_name, variable):
 Pruned RNN-SM training and testing
 '''
 if __name__ == '__main__':
-    all_files = [(item, folder["class"]) for folder in FOLDERS for item in get_file_list(folder["folder"])]
+    all_files = []
+    for folder in FOLDERS:
+        for item in get_file_list(folder["folder"]):
+            all_files.append((item, folder["class"]))
 
     random.shuffle(all_files)
 
     save_variable('all_files.pkl', all_files)
 
-    all_samples_x = [(parse_sample(item[0])) for item in all_files]
-    all_samples_y = [item[1] for item in all_files]
+    all_samples_x = []
+    for item in all_files:
+        all_samples_x.append((parse_sample(item[0])))
+
+    all_samples_y = []
+    for item in all_files:
+        all_samples_y.append(item[1])
 
     np_all_samples_x = np.asarray(all_samples_x)
     np_all_samples_y = np.asarray(all_samples_y)
