@@ -177,7 +177,7 @@ if __name__ == '__main__':
     print("Sample Train X : " + str(x_train[0]))
     print("Sample Train X : " + str(x_train[1]))
     
-    # print("Training")
-    # for i in range(ITER):
-        # model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1, validation_data=(x_test, y_test))
-        # model.save('model_%d.h5' % (i + 1))
+    print("Training")
+    for i in range(ITER):
+        model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1, validation_data=(x_test, y_test))
+        model.save('model_%d.h5' % (i + 1))
