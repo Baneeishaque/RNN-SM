@@ -1,8 +1,8 @@
 keras==2.2.0
 tensorflow==1.10.0
+numpy==1.14.5
 # scikit-learn
 # tqdm
-# numpy
 # jupyterlab
 # pylint
 # autopep8
