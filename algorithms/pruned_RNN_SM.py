@@ -83,8 +83,14 @@ if __name__ == '__main__':
         for item in get_file_list(folder["folder"]):
             all_files.append((item, folder["class"]))
 
+    print("Sample Data : " + str(all_files[0]))
+    print("Sample Data : " + str(all_files[1]))
+    
     random.shuffle(all_files)
-
+    
+    print("Sample Data After Random : " + str(all_files[0]))
+    print("Sample Data After Random : " + str(all_files[1]))
+    
     save_variable('all_files.pkl', all_files)
 
     all_samples_x = []
@@ -95,24 +101,57 @@ if __name__ == '__main__':
     for item in all_files:
         all_samples_y.append(item[1])
 
+    print("Sample Data X : " + str(all_samples_x[0]))
+    print("Sample Data Y : " + str(all_samples_y[0]))
+
+    print("Sample Data X : " + str(all_samples_x[1]))
+    print("Sample Data Y : " + str(all_samples_y[1]))
+
     np_all_samples_x = np.asarray(all_samples_x)
     np_all_samples_y = np.asarray(all_samples_y)
+
+    print("Sample Data Numpy X : " + str(np_all_samples_x[0]))
+    print("Sample Data Numpy Y : " + str(np_all_samples_y[0]))
+
+    print("Sample Data Numpy X : " + str(np_all_samples_x[1]))
+    print("Sample Data Numpy Y : " + str(np_all_samples_y[1]))
 
     save_variable('np_all_samples_x.pkl', np_all_samples_x)
     save_variable('np_all_samples_y.pkl', np_all_samples_y)
 
     file_num = len(all_files)
+    print("Total Files : " + str(file_num))
+    
     sub_file_num = int(file_num / FOLD)
+    print("Test Files : " + str(sub_file_num))
 
     x_test = np_all_samples_x[0: sub_file_num]  # The samples for testing
     y_test = np_all_samples_y[0: sub_file_num]  # The label of the samples for testing
 
+    print("Sample Test X : " + str(x_test[0]))
+    print("Sample Test Y : " + str(y_test[0]))
+
+    print("Sample Test X : " + str(x_test[1]))
+    print("Sample Test Y : " + str(y_test[1]))
+
     x_train = np_all_samples_x[sub_file_num: file_num]  # The samples for training
     y_train = np_all_samples_y[sub_file_num: file_num]  # The label of the samples for training
 
+    print("Sample Train X : " + str(x_train[0]))
+    print("Sample Train Y : " + str(y_train[0]))
+
+    print("Sample Train X : " + str(x_train[1]))
+    print("Sample Train Y : " + str(y_train[1]))
+
+    time_steps=int(SAMPLE_LENGTH / 10)
+    print("Time Steps : " + str(time_steps))
+
+    data_dimension=3
+    print("Data Dimension : " + str(data_dimension))
+
     print("Building model")
     model = Sequential()
-    model.add(LSTM(50, input_shape=(int(SAMPLE_LENGTH / 10), 3), return_sequences=True))  # first layer
+    model.add(LSTM(50, input_shape=(time_steps, data_dimension), return_sequences=True))  # first layer
     model.summary()
     model.add(LSTM(50))  # second layer
     model.summary()
@@ -123,7 +162,22 @@ if __name__ == '__main__':
 
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=["accuracy"])
 
-    print("Training")
-    for i in range(ITER):
-        model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1, validation_data=(x_test, y_test))
-        model.save('model_%d.h5' % (i + 1))
+    print("Dimen Train X : " + str(x_train.ndim))
+    print("Shape Train X : " + str(x_train.shape))
+    
+    print("Train X")
+    print("--------")
+    print(x_train)
+    
+    x_train=x_train.reshape(1,time_steps,data_dimension)
+
+    print("Dimen Train X Reshape : " + str(x_train.ndim))
+    print("Shape Train X Reshape : " + str(x_train.shape))
+
+    print("Sample Train X : " + str(x_train[0]))
+    print("Sample Train X : " + str(x_train[1]))
+    
+    # print("Training")
+    # for i in range(ITER):
+        # model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1, validation_data=(x_test, y_test))
+        # model.save('model_%d.h5' % (i + 1))
