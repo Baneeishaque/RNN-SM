@@ -1,0 +1,107 @@
+    1  cd algorithms/
+    2  wget https://www.amherstqa.com/log-files/fm/g729a_Steg.rar
+    3  sudo apt update
+    4  sudo apt install unrar
+    5  unrar l g729a_Steg.rar 
+    6  unrar x  g729a_Steg.rar g729a_0.rar g729a_Steg/English*
+    7  la
+    8  la g729a_Steg/
+    9  unrar l g729a_0.rar 
+   10* 
+   11  ls -l --time=birth g729a_0
+   12  ls -l --time=use g729a_0
+   13  ls -l --time=use g729a_0 | grep English25
+   14  ls -l --time=use g729a_0 | grep English256
+   15  ls -l --time=use g729a_0 | grep English2560
+   16  ls g729a_0 | wc -l
+   17  ls g729a_Steg | wc -l
+   18  ls g729a_Steg | grep English1* | wc -l
+   19  ls g729a_Steg | grep English11* | wc -l
+   20  ls g729a_Steg | grep English12* | wc -l
+   21  ls g729a_Steg | grep English13* | wc -l
+   22  ls g729a_Steg | grep English14* | wc -l
+   23  ls g729a_Steg | grep English15* | wc -l
+   24  ls g729a_Steg | grep English16* | wc -l
+   25  ls g729a_Steg | grep English17* | wc -l
+   26  ls g729a_Steg | grep English2* | wc -l
+   27  ls g729a_Steg
+   28  ls g729a_Steg | grep English 2295*
+   29  ls g729a_Steg | grep English2295*
+   30  ls g729a_Steg | grep English2300*
+   31  ls g729a_Steg | grep English2310*
+   32  ls g729a_Steg | grep English2320*
+   33  ls g729a_Steg | grep English2330*
+   34  ls g729a_Steg | grep English2340*
+   35  ls g729a_Steg | grep English2350*
+   36  ls g729a_Steg | grep English2360*
+   37  ls g729a_Steg | grep English2370*
+   38  ls g729a_Steg | grep English2380*
+   39  ls g729a_Steg | grep English2390*
+   40  ls g729a_Steg | grep English2510*
+   41  ls g729a_Steg | grep "^English25126"
+   42  ls g729a_Steg | grep "^English25126."
+   43  ls g729a_Steg | grep "^English25126" | grep "English25126..g729a"
+   44  ls g729a_Steg | grep "^English25126..g729a"
+   45  ls g729a_Steg | grep "^English25127..g729a"
+   46  ls g729a_Steg | grep "^English25128..g729a"
+   47  ls g729a_Steg | grep "^English25129..g729a"
+   48  ls g729a_Steg | grep "^English2513...g729a"
+   49  ls g729a_Steg | grep "^English2514...g729a"
+   50  ls g729a_Steg | grep "^English2515...g729a"
+   51  ls g729a_Steg | grep "^English2516...g729a"
+   52  ls g729a_Steg | grep "^English2517...g729a"
+   53  ls g729a_Steg | grep "^English2518...g729a"
+   54  ls g729a_Steg | grep "^English2519...g729a"
+   55  rm "^English2519...g729a"
+   56  ls g729a_Steg | grep "^English2519...g729a" | xargs rm
+   57  cd g729a_0
+   58  ls | grep "^English2519...g729a" | xargs rm
+   59  ls | grep "^English2518...g729a" | xargs rm
+   60  ls | grep "^English2517...g729a" | xargs rm
+   61  ls | grep "^English2516...g729a" | xargs rm
+   62  ls | grep "^English2515...g729a" | xargs rm
+   63  ls | grep "^English2514...g729a" | xargs rm
+   64  ls | grep "^English2513...g729a" | xargs rm
+   65  ls | grep "^English25129..g729a" | xargs rm
+   66  ls | grep "^English25128..g729a" | xargs rm
+   67  ls | grep "^English25127..g729a" | xargs rm
+   68  ls | grep "^English25126..g729a" | xargs rm
+   69  ls | grep "^English251259.g729a" | xargs rm
+   70  ls | grep "^English251258.g729a" | xargs rm
+   71  ls | grep "^English251257.g729a" | xargs rm
+   72  ls | grep "^English251256.g729a" | xargs rm
+   73  ls | grep "^English251255.g729a" | xargs rm
+   74  ls | grep "^English251254.g729a" | xargs rm
+   75  ls | grep "^English251253.g729a" | xargs rm
+   76  ls | grep "^English251252.g729a" | xargs rm
+   77  ls | grep "^English251251.g729a" | xargs rm
+   78  ls | wc -l
+   79  cd ../g729a_Steg/
+   80  ls | grep "^English2519...g729a" | xargs rm
+   81  ls | grep "^English2518...g729a" | xargs rm
+   82  ls | grep "^English2517...g729a" | xargs rm
+   83  ls | grep "^English2516...g729a" | xargs rm
+   84  ls | grep "^English2515...g729a" | xargs rm
+   85  ls | grep "^English2514...g729a" | xargs rm
+   86  ls | grep "^English2513...g729a" | xargs rm
+   87  ls | grep "^English25129..g729a" | xargs rm
+   88  ls | grep "^English25128..g729a" | xargs rm
+   89  ls | grep "^English25127..g729a" | xargs rm
+   90  ls | grep "^English25126..g729a" | xargs rm
+   91  ls | grep "^English251259.g729a" | xargs rm
+   92  ls | grep "^English251258.g729a" | xargs rm
+   93  ls | grep "^English251257.g729a" | xargs rm
+   94  ls | grep "^English251256.g729a" | xargs rm
+   95  ls | grep "^English251255.g729a" | xargs rm
+   96  ls | grep "^English251254.g729a" | xargs rm
+   97  ls | grep "^English251253.g729a" | xargs rm
+   98  ls | grep "^English251252.g729a" | xargs rm
+   99  ls | grep "^English251251.g729a" | xargs rm
+  100  ls | wc -l
+  101  cd ..
+  102  la
+  103  mv g729a_0 g729a
+  104  la
+  105  rm g729a_0.rar g729a_Steg.rar 
+  106  la
+  107  history > history.txt
