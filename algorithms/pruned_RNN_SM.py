@@ -115,8 +115,11 @@ if __name__ == '__main__':
     model.add(LSTM(50, input_shape=(int(SAMPLE_LENGTH / 10), 3), return_sequences=True))  # first layer
     model.summary()
     model.add(LSTM(50))  # second layer
+    model.summary()
     model.add(Dense(1))  # output layer
+    model.summary()
     model.add(Activation('sigmoid'))  # activation function
+    model.summary()
 
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=["accuracy"])
 
