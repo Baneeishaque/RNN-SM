@@ -40,7 +40,7 @@ steps:
   #   - task: Cache@2
   #     displayName: Use cached Anaconda environment
   #     inputs:
-  #       key: 'conda | "$(ANACONDA_VERSION)" | "$(TIME_STAMP)" | "$(Agent.OS)" | environment.yml'
+  #       key: 'conda | "$(ANACONDA_VERSION)" | "$(TIME_STAMP)" | "$(Agent.OS)" | environment-linux.yml'
   #       restoreKeys: |
   #         python | "$(Agent.OS)"
   #         python
@@ -55,7 +55,7 @@ steps:
     displayName: Update Anaconda environment
   #     condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
 
-  - script: conda env create --file environment.yml
+  - script: conda env create --file environment-linux.yml
     displayName: Create Anaconda environment
     #     condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
 
