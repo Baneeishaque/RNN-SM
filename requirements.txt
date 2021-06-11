@@ -1,6 +1,6 @@
-keras==2.2.0
-tensorflow==1.10.0
-numpy==1.14.5
+keras==1.2.2
+tensorflow==0.12.1
+# numpy==1.14.5
 # scikit-learn
 # tqdm
 # jupyterlab

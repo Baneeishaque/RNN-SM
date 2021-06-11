@@ -15,12 +15,13 @@ import numpy as np
 import os, pickle, random, datetime
 
 from keras.models import Sequential
-from keras.layers import Dense, Activation, LSTM
+from keras.layers import Dense, Activation, LSTM, Reshape, Flatten
 
 FOLDERS = [
-    {"class": 1, "folder": "g729a"},
     # The folder that contains positive data files.
-    {"class": 0, "folder": "g729a_Steg"}  # The folder that contains negative data files.
+    {"class": 1, "folder": "g729a_Steg"},
+    # The folder that contains negative data files.
+    {"class": 0, "folder": "g729a_0"}
 ]
 
 SAMPLE_LENGTH = 10000  # The sample length (ms)
@@ -88,8 +89,8 @@ if __name__ == '__main__':
     
     random.shuffle(all_files)
     
-    print("Sample Data After Random : " + str(all_files[0]))
-    print("Sample Data After Random : " + str(all_files[1]))
+    # print("Sample Data After Random : " + str(all_files[0]))
+    # print("Sample Data After Random : " + str(all_files[1]))
     
     save_variable('all_files.pkl', all_files)
 
@@ -104,17 +105,17 @@ if __name__ == '__main__':
     print("Sample Data X : " + str(all_samples_x[0]))
     print("Sample Data Y : " + str(all_samples_y[0]))
 
-    print("Sample Data X : " + str(all_samples_x[1]))
-    print("Sample Data Y : " + str(all_samples_y[1]))
+    # print("Sample Data X : " + str(all_samples_x[1]))
+    # print("Sample Data Y : " + str(all_samples_y[1]))
 
     np_all_samples_x = np.asarray(all_samples_x)
     np_all_samples_y = np.asarray(all_samples_y)
 
-    print("Sample Data Numpy X : " + str(np_all_samples_x[0]))
-    print("Sample Data Numpy Y : " + str(np_all_samples_y[0]))
+    # print("Sample Data Numpy X : " + str(np_all_samples_x[0]))
+    # print("Sample Data Numpy Y : " + str(np_all_samples_y[0]))
 
-    print("Sample Data Numpy X : " + str(np_all_samples_x[1]))
-    print("Sample Data Numpy Y : " + str(np_all_samples_y[1]))
+    # print("Sample Data Numpy X : " + str(np_all_samples_x[1]))
+    # print("Sample Data Numpy Y : " + str(np_all_samples_y[1]))
 
     save_variable('np_all_samples_x.pkl', np_all_samples_x)
     save_variable('np_all_samples_y.pkl', np_all_samples_y)
@@ -128,20 +129,20 @@ if __name__ == '__main__':
     x_test = np_all_samples_x[0: sub_file_num]  # The samples for testing
     y_test = np_all_samples_y[0: sub_file_num]  # The label of the samples for testing
 
-    print("Sample Test X : " + str(x_test[0]))
-    print("Sample Test Y : " + str(y_test[0]))
+    # print("Sample Test X : " + str(x_test[0]))
+    # print("Sample Test Y : " + str(y_test[0]))
 
-    print("Sample Test X : " + str(x_test[1]))
-    print("Sample Test Y : " + str(y_test[1]))
+    # print("Sample Test X : " + str(x_test[1]))
+    # print("Sample Test Y : " + str(y_test[1]))
 
     x_train = np_all_samples_x[sub_file_num: file_num]  # The samples for training
     y_train = np_all_samples_y[sub_file_num: file_num]  # The label of the samples for training
 
-    print("Sample Train X : " + str(x_train[0]))
-    print("Sample Train Y : " + str(y_train[0]))
+    # print("Sample Train X : " + str(x_train[0]))
+    # print("Sample Train Y : " + str(y_train[0]))
 
-    print("Sample Train X : " + str(x_train[1]))
-    print("Sample Train Y : " + str(y_train[1]))
+    # print("Sample Train X : " + str(x_train[1]))
+    # print("Sample Train Y : " + str(y_train[1]))
 
     time_steps=int(SAMPLE_LENGTH / 10)
     print("Time Steps : " + str(time_steps))
@@ -152,32 +153,44 @@ if __name__ == '__main__':
     print("Building model")
     model = Sequential()
     model.add(LSTM(50, input_shape=(time_steps, data_dimension), return_sequences=True))  # first layer
-    model.summary()
+    # model.summary()
     model.add(LSTM(50))  # second layer
-    model.summary()
+    # model.summary()
     model.add(Dense(1))  # output layer
-    model.summary()
+    # model.summary()
     model.add(Activation('sigmoid'))  # activation function
-    model.summary()
+    # model.summary()
 
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=["accuracy"])
 
-    print("Dimen Train X : " + str(x_train.ndim))
-    print("Shape Train X : " + str(x_train.shape))
-    
-    print("Train X")
-    print("--------")
-    print(x_train)
-    
-    x_train=x_train.reshape(1,time_steps,data_dimension)
+    # print("Model Input Layer Shapes")
+    # print("-------------------------")
+    # for layer in model.layers:
+    #     print(layer.input_shape)
 
-    print("Dimen Train X Reshape : " + str(x_train.ndim))
-    print("Shape Train X Reshape : " + str(x_train.shape))
+    # print("Dimen Train X : " + str(x_train.ndim))
+    # print("Shape Train X : " + str(x_train.shape))
+    
+    # print("Train X")
+    # print("--------")
+    # print(x_train)
 
-    print("Sample Train X : " + str(x_train[0]))
-    print("Sample Train X : " + str(x_train[1]))
+    # print("Dimen Train Y : " + str(y_train.ndim))
+    # print("Shape Train Y : " + str(y_train.shape))
+    
+    # x_train=x_train.reshape(x_train.shape[0]/(time_steps*data_dimension),time_steps,data_dimension)
+    # y_train=y_train.reshape(y_train.shape[0]/(time_steps*data_dimension),time_steps,data_dimension)
+
+    # print("Dimen Train X Reshape : " + str(x_train.ndim))
+    # print("Shape Train X Reshape : " + str(x_train.shape))
+
+    # print("Dimen Train Y Reshape : " + str(y_train.ndim))
+    # print("Shape Train Y Reshape : " + str(y_train.shape))
+
+    # print("Sample Train X : " + str(x_train[0]))
+    # print("Sample Train X : " + str(x_train[1]))
     
     print("Training")
     for i in range(ITER):
-        model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1, validation_data=(x_test, y_test))
+        model.fit(x_train, y_train, batch_size=BATCH_SIZE, nb_epoch=1, validation_data=(x_test, y_test))
         model.save('model_%d.h5' % (i + 1))
