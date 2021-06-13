@@ -14,11 +14,11 @@ Email:  zinanl@andrew.cmu.edu
 import numpy as np
 import os, pickle, random, datetime
 
+os.environ['KERAS_BACKEND'] = 'theano'
 from keras.models import Sequential
 from keras.layers import Dense, Activation, LSTM, Reshape, Flatten
 
 FOLDERS = [
-<<<<<<< Updated upstream
     # The folder that contains positive data files.
     {"class": 1, "folder": "g729a_Steg"},
     # The folder that contains negative data files.
