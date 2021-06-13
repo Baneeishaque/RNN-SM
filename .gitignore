@@ -1,1 +1,4 @@
-dataset
+# dataset
+algorithms/all_files.pkl
+algorithms/np_all_samples_x.pkl
+algorithms/np_all_samples_y.pkl
