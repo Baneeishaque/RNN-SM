@@ -19,8 +19,8 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, LSTM
 
 FOLDERS = [
-	{"class" : 1, "folder" : "/data1/linzn/data/ch_g729a_100_10000ms_FEAT"}, # The folder that contains positive data files.
-	{"class" : 0, "folder" : "/data1/linzn/data/ch_g729a_0_10000ms_FEAT"} # The folder that contains negative data files.
+	{"class" : 1, "folder" : "g729a_Steg"}, # The folder that contains positive data files.
+	{"class" : 0, "folder" : "g729a_a"} # The folder that contains negative data files.
 ]
 
 SAMPLE_LENGTH = 10000   # The sample length (ms)
