@@ -1,0 +1,19 @@
+name: RNN-SM
+dependencies:
+  - python=2
+  - pip
+  - pip :
+      # - keras==1.0.0
+      # - keras==1.1.0
+      # - keras==1.2.0
+      # - keras==1.2.1
+      - keras==2.2.0
+      - https://github.com/fo40225/tensorflow-windows-wheel/raw/master/1.10.0/py27/CPU/avx2/tensorflow-1.10.0-cp27-cp27m-win_amd64.whl
+  # - tensorflow==1.2.0
+  # - keras==1.2.0
+  # - scikit-learn
+  # - tqdm
+  # - jupyterlab
+  # - pylint
+  # - autopep8
+#  - python
