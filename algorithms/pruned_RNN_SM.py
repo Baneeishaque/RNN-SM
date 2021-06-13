@@ -14,6 +14,7 @@ Email:  zinanl@andrew.cmu.edu
 import numpy as np
 import os, pickle, random, datetime
 
+os.environ['KERAS_BACKEND'] = 'theano'
 from keras.models import Sequential
 from keras.layers import Dense, Activation, LSTM
 
