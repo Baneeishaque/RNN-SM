@@ -1,10 +1,12 @@
-FROM baneeishaque/baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio-gh-chrome-intellij-idea-pycharm
+# FROM baneeishaque/baneeishaque/gitpod-workspace-full-vnc-1366x768-tint2-pcmanfm-zsh-android-studio-gh-chrome-intellij-idea-pycharm
 
-COPY environment-linux.yml $HOME/
+# COPY environment-linux.yml $HOME/
 
-RUN conda env create -f $HOME/environment.yml \
- && rm $HOME/environment.yml
+# RUN conda env create -f $HOME/environment.yml \
+#  && rm $HOME/environment.yml
 
 # RUN pyenv global anaconda3-2020.11/envs/RNN-SM
 # RUN echo "conda activate RNN-SM" >> ~/.bashrc
 # RUN echo "conda activate RNN-SM" >> ~/.zshrc
+
+FROM gitpod/workspace-full
