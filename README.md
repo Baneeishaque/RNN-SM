@@ -1,5 +1,13 @@
 # RNN-SM: Fast Steganalysis of VoIP Streams Using Recurrent Neural Network
 
+<a href="https://gitpod.io/#https://github.com/Baneeishaque/RNN-SM"><img src="https://icons-for-free.com/iconfiles/png/512/gitpod-1324440164066425542.png" alt="Gitpod IDE" width="100" height="100"></a>
+<a href="https://github1s.com/Baneeishaque/RNN-SM"><img src="https://raw.githubusercontent.com/conwnet/github1s/master/resources/images/logo.svg" alt="Github1s Editor" width="100" height="100"></a>
+
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/Baneeishaque/RNN-SM)
+
+### Base Image : [baneeishaque/gp-vnc-zsh-as-gh-chrome-idea-charm-conda3-mine-r-zilla-gram-matlab-mysql-phpwebstorm-1366x625-code](https://hub.docker.com/repository/docker/baneeishaque/gp-vnc-zsh-as-gh-chrome-idea-charm-conda3-mine-r-zilla-gram-matlab-mysql-phpwebstorm-1366x625-code) 
+
+[//]: # "[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Baneeishaque/RNN-SM)"
 
 **[[paper (IEEE)](http://ieeexplore.ieee.org/document/8292900/)]**
 **[[paper (pdf)](http://www.andrew.cmu.edu/user/zinanl/publications/rnn-sm.pdf)]**
