@@ -1,0 +1,12 @@
+name: RNN-SM
+dependencies:
+  - python=2
+  - pip
+  - pip :
+    - tensorflow==1.2.0
+    - keras==1.2.0
+    # - scikit-learn
+    # - tqdm
+    # - jupyterlab
+    # - pylint
+    # - autopep8
